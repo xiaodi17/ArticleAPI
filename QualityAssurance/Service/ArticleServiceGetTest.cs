@@ -15,5 +15,13 @@ namespace QualityAssurance.Service
             var item = service.Get(1);
             Assert.Equal(1, item.Id);
         }
+        
+        [Fact]
+        public void Service_Get_Invalid_Test()
+        {
+            var service = new ArticleService(_repository);
+            var item = service.Get(2);
+            Assert.Null(item);
+        }
     }
 }

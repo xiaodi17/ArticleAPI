@@ -28,7 +28,6 @@ namespace ArticleAPI.Controllers
             var item = _articleService.Get(id);
             if (item == null)
             {
-                _logger.LogError($"Article id: {id} not found", id);
                 return BadRequest("Article not found");
             }
             return Ok(item);
