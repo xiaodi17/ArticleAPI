@@ -16,5 +16,18 @@ namespace Application
         {
             return _articleRepository.Get(id);
         }
+        
+        public void Add(Article articleModel)
+        {
+            var article = new Article
+            {
+                Body = articleModel.Body,
+                Date = DateTime.Now,
+                Tags = articleModel.Tags,
+                Title = articleModel.Title
+            };
+            
+            _articleRepository.Add(article);
+        }
     }
 }

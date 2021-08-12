@@ -23,9 +23,10 @@ namespace ArticleAPI.Controllers
         }
 
         [HttpGet("/articles/{id}")]
-        public Article Get([FromRoute] int id)
+        public ActionResult Get([FromRoute] int id)
         {
-            return _articleService.Get(id);
+            var item = _articleService.Get(id);
+            return Ok(item);
         }
     }
 }

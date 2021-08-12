@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application;
+using ArticleAPI.Controllers;
 using DataAccess;
 
 namespace ArticleAPI
@@ -32,7 +33,7 @@ namespace ArticleAPI
             services.AddControllers();
             services.AddScoped<IArticleRepository, InMemoryArticleRepository>();
             services.AddTransient<ArticleService, ArticleService>();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ArticleAPI", Version = "v1" });
