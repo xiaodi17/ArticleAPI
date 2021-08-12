@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
@@ -8,28 +9,23 @@ namespace DataAccess
     public class InMemoryArticleRepository : IArticleRepository
     {
         protected readonly ArticleDbContext DbContext;
-        protected readonly DbSet<Article> _dbContext;
-        
+        protected readonly DbSet<Article> _dbContextArticle;
+
         public InMemoryArticleRepository(ArticleDbContext dbContext)
         {
             DbContext = dbContext;
-            _dbContext = DbContext.Set<Article>();
+            _dbContextArticle = DbContext.Set<Article>();
         }
 
         public Article Get(int id)
         {
-            return _dbContext.SingleOrDefault(s => s.Id == id);
+            return _dbContextArticle.SingleOrDefault(s => s.Id == id);
         }
 
         public void Add(Article article)
         {
-            _dbContext.Add(article);
+            _dbContextArticle.Add(article);
             DbContext.SaveChanges();
-        }
-
-        public int GetNextId()
-        {
-            return _dbContext.Count() + 1;
         }
     }
 }

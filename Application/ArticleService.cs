@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using DataAccess;
+using DataAccess.Interfaces;
 
 namespace Application
 {
     public class ArticleService
     {
         private readonly IArticleRepository _articleRepository;
+        private readonly ITagRepository _tagRepository;
 
-        public ArticleService(IArticleRepository articleRepository)
+        public ArticleService(IArticleRepository articleRepository, ITagRepository tagRepository)
         {
             _articleRepository = articleRepository;
+            _tagRepository = tagRepository;
         }
 
         public Article Get(int id)
@@ -26,7 +30,22 @@ namespace Application
                 Title = articleModel.Title
             };
 
+            var tags = new List<Tag>();
+
+            foreach (var tagName in articleModel.Tags)
+            {
+                var tag = new Tag()
+                {
+                    Name = tagName
+                };
+                tags.Add(tag);
+            }
+
+            article.Tags = tags;
+
             _articleRepository.Add(article);
+            _tagRepository.Add(tags);
+            
             return article;
         }
     }

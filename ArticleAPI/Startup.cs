@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Application;
 using ArticleAPI.Controllers;
 using DataAccess;
+using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArticleAPI
@@ -34,6 +35,7 @@ namespace ArticleAPI
             services.AddControllers();
             services.AddDbContext<ArticleDbContext>(opt => opt.UseInMemoryDatabase("Articles"));
             services.AddScoped<IArticleRepository, InMemoryArticleRepository>();
+            services.AddScoped<ITagRepository, InMemoryTagRepository>();
             services.AddTransient<ArticleService, ArticleService>();
 
             services.AddSwaggerGen(c =>

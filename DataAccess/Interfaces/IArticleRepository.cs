@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace DataAccess
+﻿namespace DataAccess.Interfaces
 {
     public interface IArticleRepository
     {
         Article Get(int id);
         void Add(Article article);
-        int GetNextId();
     }
 }
