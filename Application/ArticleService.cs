@@ -31,20 +31,27 @@ namespace Application
             };
 
             var tags = new List<Tag>();
-
-            foreach (var tagName in articleModel.Tags)
+            foreach (var item in articleModel.Tags)
             {
-                var tag = new Tag()
-                {
-                    Name = tagName
-                };
+                var tag = new Tag {Name = item};
                 tags.Add(tag);
             }
 
-            article.Tags = tags;
+            var tagLink = new List<ArticleTag>();
 
+            foreach (var tag in tags)
+            {
+                var result = new ArticleTag
+                {
+                    Tag = tag,
+                    Article = article
+                };
+                tagLink.Add(result);
+            }
+
+            article.TagsLink = tagLink;
             _articleRepository.Add(article);
-            _tagRepository.Add(tags);
+            // _tagRepository.Add(tags);
             
             return article;
         }

@@ -19,7 +19,8 @@ namespace DataAccess
 
         public Article Get(int id)
         {
-            return _dbContextArticle.SingleOrDefault(s => s.Id == id);
+            var item = _dbContextArticle.SingleOrDefault(s => s.ArticleId == id);
+            return item;
         }
 
         public void Add(Article article)

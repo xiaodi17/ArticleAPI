@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Application;
 using ArticleAPI.Controllers;
@@ -37,6 +38,9 @@ namespace ArticleAPI
             services.AddScoped<IArticleRepository, InMemoryArticleRepository>();
             services.AddScoped<ITagRepository, InMemoryTagRepository>();
             services.AddTransient<ArticleService, ArticleService>();
+            
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             services.AddSwaggerGen(c =>
             {
