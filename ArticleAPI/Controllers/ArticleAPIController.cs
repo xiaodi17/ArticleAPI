@@ -28,5 +28,12 @@ namespace ArticleAPI.Controllers
             var item = _articleService.Get(id);
             return Ok(item);
         }
+        
+        [HttpPost("/articles")]
+        public ActionResult CreateArticle([FromBody] ArticleCreateModel article)
+        {
+            _articleService.Add(article);
+            return Ok();
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Application
             return _articleRepository.Get(id);
         }
         
-        public void Add(Article articleModel)
+        public void Add(ArticleCreateModel articleModel)
         {
             var article = new Article
             {

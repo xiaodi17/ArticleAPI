@@ -13,7 +13,12 @@ namespace QualityAssurance.Service
         public void Service_Add_Test()
         {
             var service = new ArticleService(_repository);
-            var article = new Article("First Article", "Body", new List<string>());
+            var article = new ArticleCreateModel()
+            {
+                Title = "First",
+                Body = "Body",
+                Tags = new List<string>()
+            };
             
             service.Add(article);
 
