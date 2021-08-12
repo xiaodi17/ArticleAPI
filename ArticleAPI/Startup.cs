@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Application;
 using ArticleAPI.Controllers;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace ArticleAPI
 {
@@ -31,6 +32,7 @@ namespace ArticleAPI
         {
 
             services.AddControllers();
+            services.AddDbContext<ArticleDbContext>(opt => opt.UseInMemoryDatabase("Articles"));
             services.AddScoped<IArticleRepository, InMemoryArticleRepository>();
             services.AddTransient<ArticleService, ArticleService>();
 
