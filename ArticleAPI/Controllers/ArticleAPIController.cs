@@ -36,8 +36,8 @@ namespace ArticleAPI.Controllers
         [HttpPost("/articles")]
         public ActionResult CreateArticle([FromQuery] ArticleCreateModel article)
         {
-            _articleService.Add(article);
-            return Ok();
+            var item = _articleService.Add(article);
+            return Created("default", item);
         }
     }
 }

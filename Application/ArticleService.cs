@@ -17,7 +17,7 @@ namespace Application
             return _articleRepository.Get(id);
         }
         
-        public void Add(ArticleCreateModel articleModel)
+        public Article Add(ArticleCreateModel articleModel)
         {
             var article = new Article
             {
@@ -30,6 +30,7 @@ namespace Application
             article.Id = _articleRepository.GetNextId();
             
             _articleRepository.Add(article);
+            return article;
         }
     }
 }
