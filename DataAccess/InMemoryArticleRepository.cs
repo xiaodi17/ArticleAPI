@@ -13,7 +13,7 @@ namespace DataAccess
         
         public Article Get(int id)
         {
-            return _store.Single(s => s.Id == id);
+            return _store.SingleOrDefault(s => s.Id == id);
         }
 
         public void Add(Article article)
