@@ -6,5 +6,6 @@ namespace DataAccess
     {
         Article Get(int id);
         void Add(Article article);
+        int GetNextId();
     }
 }

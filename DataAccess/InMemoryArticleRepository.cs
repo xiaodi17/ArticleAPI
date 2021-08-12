@@ -20,5 +20,10 @@ namespace DataAccess
         {
             _store.Add(article);
         }
+
+        public int GetNextId()
+        {
+            return _store.Count + 1;
+        }
     }
 }

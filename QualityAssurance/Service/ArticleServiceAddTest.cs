@@ -18,7 +18,7 @@ namespace QualityAssurance.Service
             service.Add(article);
 
             var item = service.Get(2);
-            Assert.Equal(1, item.Id);
+            Assert.Equal(2, item.Id);
         }
     }
 }

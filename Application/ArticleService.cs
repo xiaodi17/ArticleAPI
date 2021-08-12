@@ -26,6 +26,8 @@ namespace Application
                 Tags = articleModel.Tags,
                 Title = articleModel.Title
             };
+
+            article.Id = _articleRepository.GetNextId();
             
             _articleRepository.Add(article);
         }
