@@ -13,10 +13,12 @@ namespace DataAccess
         }
         public async Task<List<Tag>> GetTagsByIds(List<int> ids)
         {
-            //return await GetAll().Where(i => ids.Contains(i.TagId)).ToListAsync();
-            var x = GetAll().Where(i => ids.Contains(i.TagId));
-            var y = x.ToListAsync();
-            return await y;
+            return await (GetAll().Where(i => ids.Contains(i.TagId))).ToListAsync();
+        }
+
+        public async Task<Tag> GetTagByName(string name)
+        {
+            return await GetAll().FirstOrDefaultAsync(x => x.Name == name);
         }
     }
 }

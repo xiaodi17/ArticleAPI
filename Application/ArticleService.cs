@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccess;
 using DataAccess.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace Application
 {
@@ -74,6 +76,27 @@ namespace Application
             
             article.ArticleLink.AddRange(articletags);
             _articleRepository.AddAsync(article);
+        }
+
+        public async Task<TagDetailModel> GetTagDetail(string tagName, string dateString)
+        {
+            var tag = await _tagRepository.GetTagByName(tagName);
+            if (tag is null)
+                return null;
+
+            if (!DateTime.TryParseExact("dateString",
+                "yyyyMMdd",
+                CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.None,
+                out var date))
+            {
+                throw new InvalidOperationException("Incorrect datetime format");
+            }
+
+            var tagDetailModel = new TagDetailModel();
+
+            return tagDetailModel;
+
         }
     }
 }

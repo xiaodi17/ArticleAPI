@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Application;
-using Newtonsoft.Json;
 
 namespace ArticleAPI.Controllers
 {
@@ -27,7 +27,22 @@ namespace ArticleAPI.Controllers
             {
                 return BadRequest("Article not found");
             }
+            
             return Ok(item);
+        }
+
+        [HttpGet("/tags/{tagName}/{date}")]
+        public async Task<ActionResult> GetTag([FromQuery] string tagName, string date)
+        {
+            var item = await _articleService.GetTagDetail(tagName, date);
+
+            if (item == null)
+            {
+                return BadRequest("Tag not found");
+            }
+
+            return Ok(item);
+
         }
         
         [HttpPost("/articles")]
