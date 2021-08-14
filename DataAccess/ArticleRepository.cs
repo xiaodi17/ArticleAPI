@@ -24,7 +24,6 @@ namespace DataAccess
         public Article Get(int id)
         {
             var item = _dbContextArticle.SingleOrDefault(s => s.ArticleId == id);
-            var tagIds = _dbContextArticleTag.Where(s => s.ArticleId == id).ToList();
 
             return item;
         }
