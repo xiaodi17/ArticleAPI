@@ -21,6 +21,11 @@ namespace DataAccess
             return _dbContextTag.SingleOrDefault(s => s.TagId == id);
         }
 
+        public List<Tag> Get(List<int> ids)
+        {
+            return _dbContextTag.Where(t => ids.Contains(t.TagId)).ToList();
+        }
+
         public void Add(Tag tag)
         {
             _dbContextTag.Add(tag);

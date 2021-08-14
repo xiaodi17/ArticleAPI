@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DataAccess;
 using DataAccess.Interfaces;
 
@@ -16,9 +17,22 @@ namespace Application
             _tagRepository = tagRepository;
         }
 
-        public Article Get(int id)
+        public ArticleModel Get(int id)
         {
-            return _articleRepository.Get(id);
+            var item = _articleRepository.Get(id);
+            var articleTag = item.ArticleLink;
+            var tagIds = articleTag.Select(i => i.TagId).ToList();
+            var tags = _tagRepository.Get(tagIds).Select(i => i.Name).ToList();
+            var result = new ArticleModel()
+            {
+                Id = item.ArticleId,
+                Body = item.Body,
+                Date = item.Date,
+                Tags = tags,
+                Title = item.Title
+            };
+            
+            return result;
         }
         
         public Article Add(ArticleCreateModel articleModel)
