@@ -27,29 +27,27 @@ namespace Application
             {
                 Body = articleModel.Body,
                 Date = DateTime.Now,
-                Title = articleModel.Title
+                Title = articleModel.Title,
+                ArticleLink = new List<ArticleTag>()
             };
 
             var tags = new List<Tag>();
+
+            var articletags = new List<ArticleTag>();
+            
             foreach (var item in articleModel.Tags)
             {
                 var tag = new Tag {Name = item};
                 tags.Add(tag);
+
+                var articletag = new ArticleTag();
+                articletag.Article = article;
+                articletag.Tag = tag;
+                
+                articletags.Add(articletag);
             }
-
-            var tagLink = new List<ArticleTag>();
-
-            foreach (var tag in tags)
-            {
-                var result = new ArticleTag
-                {
-                    Tag = tag,
-                    Article = article
-                };
-                tagLink.Add(result);
-            }
-
-            article.TagsLink = tagLink;
+            
+            article.ArticleLink.AddRange(articletags);
             _articleRepository.Add(article);
             // _tagRepository.Add(tags);
             

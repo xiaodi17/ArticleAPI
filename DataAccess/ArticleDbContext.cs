@@ -8,8 +8,8 @@ namespace DataAccess
         {
 
         }
-        public DbSet<Article> Articles { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Article> Article { get; set; }
+        public DbSet<Tag> Tag { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
@@ -25,6 +25,19 @@ namespace DataAccess
             //     .HasOne(pt => pt.Tag) 
             //     .WithMany(t => t.ArticleLink)
             //     .HasForeignKey(pt => pt.TagId);
+            
+            modelBuilder.Entity<ArticleTag>()
+                .HasOne(x => x.Article)
+                .WithMany(x => x.ArticleLink)
+                .HasForeignKey(x => x.ArticleId);
+
+            modelBuilder.Entity<ArticleTag>()
+                .HasOne(x => x.Tag)
+                .WithMany(x => x.ArticleLink)
+                .HasForeignKey(x => x.TagId);
+
+            base.OnModelCreating(modelBuilder);
+           
         }
     }
 }

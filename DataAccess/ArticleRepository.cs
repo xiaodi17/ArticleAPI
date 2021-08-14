@@ -6,20 +6,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
 {
-    public class InMemoryArticleRepository : IArticleRepository
+    public class ArticleRepository : IArticleRepository
     {
         protected readonly ArticleDbContext DbContext;
         protected readonly DbSet<Article> _dbContextArticle;
+        protected readonly DbSet<Tag> _dbContextTag;
+        protected readonly DbSet<ArticleTag> _dbContextArticleTag;
 
-        public InMemoryArticleRepository(ArticleDbContext dbContext)
+        public ArticleRepository(ArticleDbContext dbContext)
         {
             DbContext = dbContext;
             _dbContextArticle = DbContext.Set<Article>();
+            _dbContextTag = DbContext.Set<Tag>();
+            _dbContextArticleTag = DbContext.Set<ArticleTag>();
         }
 
         public Article Get(int id)
         {
             var item = _dbContextArticle.SingleOrDefault(s => s.ArticleId == id);
+            var tagIds = _dbContextArticleTag.Where(s => s.ArticleId == id).ToList();
+
             return item;
         }
 

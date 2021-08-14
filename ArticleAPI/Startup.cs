@@ -34,8 +34,12 @@ namespace ArticleAPI
         {
 
             services.AddControllers();
-            services.AddDbContext<ArticleDbContext>(opt => opt.UseInMemoryDatabase("Articles"));
-            services.AddScoped<IArticleRepository, InMemoryArticleRepository>();
+            services.AddDbContext<ArticleDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("sqlServer"));
+            });
+            // services.AddDbContext<ArticleDbContext>(opt => opt.UseInMemoryDatabase("Articles"));
+            services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<ITagRepository, InMemoryTagRepository>();
             services.AddTransient<ArticleService, ArticleService>();
             
@@ -49,14 +53,13 @@ namespace ArticleAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ArticleDbContext db)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ArticleAPI v1"));
-            }
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ArticleAPI v1"));
+
+            db.Database.EnsureCreated();
 
             app.UseHttpsRedirection();
 
