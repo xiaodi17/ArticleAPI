@@ -20,6 +20,10 @@ namespace Application
         public ArticleModel Get(int id)
         {
             var item = _articleRepository.Get(id);
+
+            if (item == null)
+                return null;
+            
             var articleTag = item.ArticleLink;
             var tagIds = articleTag.Select(i => i.TagId).ToList();
             var tags = _tagRepository.Get(tagIds).Select(i => i.Name).ToList();
@@ -35,7 +39,7 @@ namespace Application
             return result;
         }
         
-        public Article Add(ArticleCreateModel articleModel)
+        public void Add(ArticleCreateModel articleModel)
         {
             var article = new Article
             {
@@ -63,9 +67,6 @@ namespace Application
             
             article.ArticleLink.AddRange(articletags);
             _articleRepository.Add(article);
-            // _tagRepository.Add(tags);
-            
-            return article;
         }
     }
 }
