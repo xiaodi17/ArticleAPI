@@ -38,7 +38,7 @@ namespace ArticleAPI
             {
                 options.UseSqlServer(Configuration.GetConnectionString("sqlServer"));
             });
-            // services.AddDbContext<ArticleDbContext>(opt => opt.UseInMemoryDatabase("Articles"));
+            
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IArticleTagRepository, ArticleTagRepository>();

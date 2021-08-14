@@ -93,11 +93,16 @@ namespace Application
                 throw new InvalidOperationException("Incorrect datetime format");
             }
 
+            var relatedArticleIds = tag.ArticleLink.Select(i => i.ArticleId).ToList();
+
+            var relatedArticles = await _articleRepository.GetRelatedArticlesByDate(relatedArticleIds, date);
+
             var tagDetailModel = new TagDetailModel();
-
-            var articleIds = tag.ArticleLink.Select(i => i.ArticleId).ToList();
-
-            var articles = await _articleRepository.GetRelatedArticlesByDate(articleIds, date);
+            tagDetailModel.Tag = tag.Name;
+            tagDetailModel.Articles = relatedArticles.Select(i => i.ArticleId).ToList();
+            
+            //count
+            //related tags
 
             return tagDetailModel;
 
