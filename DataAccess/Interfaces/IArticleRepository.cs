@@ -1,8 +1,9 @@
-﻿namespace DataAccess.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace DataAccess.Interfaces
 {
-    public interface IArticleRepository
+    public interface IArticleRepository : IRepository<Article>
     {
-        Article Get(int id);
-        void Add(Article article);
+        Task<Article> GetArticleById (int id);
     }
 }

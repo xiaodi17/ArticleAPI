@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess;
 using DataAccess.Interfaces;
 
@@ -17,9 +18,9 @@ namespace Application
             _tagRepository = tagRepository;
         }
 
-        public ArticleModel Get(int id)
+        public async Task<ArticleModel> Get(int id)
         {
-            var item = _articleRepository.Get(id);
+            var item = await _articleRepository.GetArticleById(id);
 
             if (item == null)
                 return null;
@@ -66,7 +67,7 @@ namespace Application
             }
             
             article.ArticleLink.AddRange(articletags);
-            _articleRepository.Add(article);
+            _articleRepository.AddAsync(article);
         }
     }
 }
