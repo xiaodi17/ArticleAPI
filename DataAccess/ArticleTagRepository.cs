@@ -13,7 +13,7 @@ namespace DataAccess
         {
         }
 
-        public Task<List<ArticleTag>> GetArticleTagByIds(int id)
+        public Task<List<ArticleTag>> GetRelationshipByArticleId(int id)
         {
             return GetAll().Where(i => i.ArticleId == id).ToListAsync();
         }

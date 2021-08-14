@@ -31,7 +31,7 @@ namespace Application
             if (item == null)
                 return null;
 
-            var articleTag = await _articleTagRepository.GetArticleTagByIds(item.ArticleId);
+            var articleTag = item.ArticleLink;
             
             var tagIds = articleTag.Select(i => i.TagId).ToList();
             var tags = await _tagRepository.GetTagsByIds(tagIds);
@@ -84,16 +84,20 @@ namespace Application
             if (tag is null)
                 return null;
 
-            if (!DateTime.TryParseExact("dateString",
+            if (!DateTime.TryParseExact(dateString,
                 "yyyyMMdd",
                 CultureInfo.InvariantCulture,
-                System.Globalization.DateTimeStyles.None,
+                DateTimeStyles.None,
                 out var date))
             {
                 throw new InvalidOperationException("Incorrect datetime format");
             }
 
             var tagDetailModel = new TagDetailModel();
+
+            var articleIds = tag.ArticleLink.Select(i => i.ArticleId).ToList();
+
+            var articles = await _articleRepository.GetRelatedArticlesByDate(articleIds, date);
 
             return tagDetailModel;
 

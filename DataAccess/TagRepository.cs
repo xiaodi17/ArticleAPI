@@ -18,7 +18,7 @@ namespace DataAccess
 
         public async Task<Tag> GetTagByName(string name)
         {
-            return await GetAll().FirstOrDefaultAsync(x => x.Name == name);
+            return await GetAll().Include(i => i.ArticleLink).FirstOrDefaultAsync(x => x.Name == name);
         }
     }
 }

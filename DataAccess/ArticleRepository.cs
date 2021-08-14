@@ -13,14 +13,19 @@ namespace DataAccess
         {
         }
 
-        public void Add(Article article)
+        public async Task Add(Article article)
         {
-            AddAsync(article);
+            await AddAsync(article);
         }
 
         public async Task<Article> GetArticleById(int id)
         {
-            return await GetAll().FirstOrDefaultAsync(x => x.ArticleId == id);
+            return await GetAll().Include(i=>i.ArticleLink).FirstOrDefaultAsync(x => x.ArticleId == id);
+        }
+
+        public async Task<List<Article>> GetRelatedArticlesByDate(List<int> ids, DateTime date)
+        {
+            return await GetAll().Where(i => ids.Contains(i.ArticleId) && i.Date.Date == date.Date).Take(10).ToListAsync();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Application;
+using Newtonsoft.Json;
 
 namespace ArticleAPI.Controllers
 {
@@ -31,8 +32,8 @@ namespace ArticleAPI.Controllers
             return Ok(item);
         }
 
-        [HttpGet("/tags/{tagName}/{date}")]
-        public async Task<ActionResult> GetTag([FromQuery] string tagName, string date)
+        [HttpGet("/tags")]
+        public async Task<ActionResult> GetTag([FromQuery] string tagName, [FromQuery] string date)
         {
             var item = await _articleService.GetTagDetail(tagName, date);
 

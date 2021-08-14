@@ -5,6 +5,6 @@ namespace DataAccess.Interfaces
 {
     public interface IArticleTagRepository : IRepository<ArticleTag>
     {
-        Task<List<ArticleTag>> GetArticleTagByIds(int id);
+        Task<List<ArticleTag>> GetRelationshipByArticleId(int id);
     }
 }
