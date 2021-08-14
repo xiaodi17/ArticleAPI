@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application;
-using DataAccess;
+using Newtonsoft.Json;
 
 namespace ArticleAPI.Controllers
 {
@@ -23,9 +20,9 @@ namespace ArticleAPI.Controllers
         }
 
         [HttpGet("/articles/{id}")]
-        public ActionResult Get([FromRoute] int id)
+        public async Task<ActionResult> Get([FromRoute] int id)
         {
-            var item = _articleService.Get(id);
+            var item = await _articleService.Get(id);
             if (item == null)
             {
                 return BadRequest("Article not found");

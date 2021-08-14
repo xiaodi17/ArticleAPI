@@ -40,7 +40,8 @@ namespace ArticleAPI
             });
             // services.AddDbContext<ArticleDbContext>(opt => opt.UseInMemoryDatabase("Articles"));
             services.AddScoped<IArticleRepository, ArticleRepository>();
-            services.AddScoped<ITagRepository, InMemoryTagRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IArticleTagRepository, ArticleTagRepository>();
             services.AddTransient<ArticleService, ArticleService>();
             
             services.AddControllers().AddJsonOptions(x =>

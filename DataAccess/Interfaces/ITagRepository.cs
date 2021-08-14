@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccess.Interfaces
 {
-    public interface ITagRepository
+    public interface ITagRepository : IRepository<Tag>
     {
-        Tag Get(int id);
-        List<Tag> Get(List<int> id);
-        void Add(Tag tag);
-        void Add(ICollection<Tag> tags);
+        Task<List<Tag>> GetTagsByIds(List<int> id);
     }
 }

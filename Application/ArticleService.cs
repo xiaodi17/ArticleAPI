@@ -11,11 +11,15 @@ namespace Application
     {
         private readonly IArticleRepository _articleRepository;
         private readonly ITagRepository _tagRepository;
+        private readonly IArticleTagRepository _articleTagRepository;
 
-        public ArticleService(IArticleRepository articleRepository, ITagRepository tagRepository)
+        public ArticleService(IArticleRepository articleRepository,
+            ITagRepository tagRepository,
+            IArticleTagRepository articleTagRepository)
         {
             _articleRepository = articleRepository;
             _tagRepository = tagRepository;
+            _articleTagRepository = articleTagRepository;
         }
 
         public async Task<ArticleModel> Get(int id)
@@ -24,16 +28,18 @@ namespace Application
 
             if (item == null)
                 return null;
+
+            var articleTag = await _articleTagRepository.GetArticleTagByIds(item.ArticleId);
             
-            var articleTag = item.ArticleLink;
             var tagIds = articleTag.Select(i => i.TagId).ToList();
-            var tags = _tagRepository.Get(tagIds).Select(i => i.Name).ToList();
+            var tags = await _tagRepository.GetTagsByIds(tagIds);
+            var names = tags.Select(i => i.Name).ToList();
             var result = new ArticleModel()
             {
                 Id = item.ArticleId,
                 Body = item.Body,
                 Date = item.Date,
-                Tags = tags,
+                Tags = names,
                 Title = item.Title
             };
             

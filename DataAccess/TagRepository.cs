@@ -1,41 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
 {
-    public class InMemoryTagRepository : ITagRepository
+    public class TagRepository : Repository<Tag>, ITagRepository
     {
-        protected readonly ArticleDbContext DbContext;
-        protected readonly DbSet<Tag> _dbContextTag;
-
-        public InMemoryTagRepository(ArticleDbContext dbContext)
+        public TagRepository(ArticleDbContext repositoryPatternDemoContext) : base(repositoryPatternDemoContext)
         {
-            DbContext = dbContext;
-            _dbContextTag = DbContext.Set<Tag>();
         }
-
-        public Tag Get(int id)
+        public async Task<List<Tag>> GetTagsByIds(List<int> ids)
         {
-            return _dbContextTag.SingleOrDefault(s => s.TagId == id);
-        }
-
-        public List<Tag> Get(List<int> ids)
-        {
-            return _dbContextTag.Where(t => ids.Contains(t.TagId)).ToList();
-        }
-
-        public void Add(Tag tag)
-        {
-            _dbContextTag.Add(tag);
-            DbContext.SaveChanges();
-        }
-
-        public void Add(ICollection<Tag> tags)
-        {
-            _dbContextTag.AddRange(tags);
-            DbContext.SaveChanges();
+            //return await GetAll().Where(i => ids.Contains(i.TagId)).ToListAsync();
+            var x = GetAll().Where(i => ids.Contains(i.TagId));
+            var y = x.ToListAsync();
+            return await y;
         }
     }
 }
