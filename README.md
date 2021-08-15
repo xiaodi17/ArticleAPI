@@ -1,7 +1,7 @@
 # ArticleAPI
 
 ## Setup
-1. Download .net and mssql server.
+1. Download .net 5 SDK (https://dotnet.microsoft.com/download) and mssql server.
 2. Update connection string, user name and password in appsettings.json
 3. Go to ArticleAPI\ArticleAPI and enter command: dot net run
 
