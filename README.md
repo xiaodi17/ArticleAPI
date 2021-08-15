@@ -5,6 +5,19 @@
 2. Download docker MSSQL image using :
 docker run -d --name sql_server -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=someThingComplicated1234' -p 1433:1433 mcr.microsoft.com/mssql/server:2019-latest
 3. Go to ArticleAPI\ArticleAPI and enter command: dot net run
+4. Used postman with SSL turn off: 
+Get: localhost:3000/articles/id
+
+Post: localhost:3000/articles
+Param example:
+Title: Title 1
+Body: BODY 1
+Tags: Tag 1
+Tags: Tag 2
+
+Get: localhost:3000/tag
+tagName: Title 1
+Date: 20210815
 
 ## Solution
 I have used .net core web api to complete this project with EF core library, mssql with repository patterns.
