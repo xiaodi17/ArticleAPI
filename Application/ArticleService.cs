@@ -38,7 +38,7 @@ namespace Application
             var names = tags.Select(i => i.Name).ToList();
             var result = new ArticleModel()
             {
-                Id = item.ArticleId,
+                Id = item.ArticleId.ToString(),
                 Body = item.Body,
                 Date = item.Date,
                 Tags = names,
@@ -99,7 +99,7 @@ namespace Application
 
             var tagDetailModel = new TagDetailModel();
             tagDetailModel.Tag = tag.Name;
-            tagDetailModel.Articles = relatedArticles.Select(i => i.ArticleId).Take(10).ToList();
+            tagDetailModel.Articles = relatedArticles.Select(i => i.ArticleId.ToString()).Take(10).ToList();
             
             //count
             var count = relatedArticles.Count();
