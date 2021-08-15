@@ -99,10 +99,14 @@ namespace Application
 
             var tagDetailModel = new TagDetailModel();
             tagDetailModel.Tag = tag.Name;
-            tagDetailModel.Articles = relatedArticles.Select(i => i.ArticleId).ToList();
+            tagDetailModel.Articles = relatedArticles.Select(i => i.ArticleId).Take(10).ToList();
             
             //count
+            var count = relatedArticles.Count();
+            tagDetailModel.Count = count;
+            
             //related tags
+            
 
             return tagDetailModel;
 

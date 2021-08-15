@@ -25,7 +25,7 @@ namespace DataAccess
 
         public async Task<List<Article>> GetRelatedArticlesByDate(List<int> ids, DateTime date)
         {
-            return await GetAll().Where(i => ids.Contains(i.ArticleId) && i.Date.Date == date.Date).Take(10).ToListAsync();
+            return await GetAll().Where(i => ids.Contains(i.ArticleId) && i.Date.Date == date.Date).ToListAsync();
         }
     }
 }
