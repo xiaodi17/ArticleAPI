@@ -105,11 +105,18 @@ namespace Application
             tagDetailModel.Tag = tag.Name;
             tagDetailModel.Articles = relatedArticles.Select(i => i.ArticleId.ToString()).Take(10).ToList();
             
-            //count
             var count = relatedArticles.Count();
             tagDetailModel.Count = count;
             
-            //related tags
+            var distinctRelatedTag = await GetDistinctRelatedTags(relatedArticles, tag.TagId);
+
+            tagDetailModel.RelatedTags = distinctRelatedTag.Select(i => i.Name).ToList();
+            return tagDetailModel;
+
+        }
+
+        private async Task<List<Tag>> GetDistinctRelatedTags(List<Article> relatedArticles, int tagId)
+        {
             var allRelatedTagIds = new List<int>();
             
             foreach (var article in relatedArticles)
@@ -117,17 +124,13 @@ namespace Application
                 var articleTags = article.ArticleLink;
                 foreach (var item in articleTags)
                 {
-                    if (item.TagId != tag.TagId)
+                    if (item.TagId != tagId)
                         allRelatedTagIds.Add(item.TagId);
                 }
             }
 
             var distinctRelatedTagIds = allRelatedTagIds.Distinct().ToList();
-            var distinctRelatedTag = await _tagRepository.GetTagsByIds(distinctRelatedTagIds);
-
-            tagDetailModel.RelatedTags = distinctRelatedTag.Select(i => i.Name).ToList();
-            return tagDetailModel;
-
+            return await _tagRepository.GetTagsByIds(distinctRelatedTagIds);
         }
     }
 }
