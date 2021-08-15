@@ -54,6 +54,11 @@ namespace Application
             {
                 throw new InvalidOperationException("Article title and body cannot be empty");
             }
+
+            if (articleModel.Tags == null)
+            {
+                throw new InvalidOperationException("Tag cannot be null");
+            }
             var article = new Article
             {
                 Body = articleModel.Body,
