@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,34 +24,55 @@ namespace ArticleAPI.Controllers
         [HttpGet("/articles/{id}")]
         public async Task<ActionResult> Get([FromRoute] int id)
         {
-            var item = await _articleService.Get(id);
-            if (item == null)
+            try
             {
-                return BadRequest("Article not found");
+                var item = await _articleService.Get(id);
+                if (item == null)
+                {
+                    return NotFound("Article not found");
+                }
+
+                return Ok(item);
             }
-            
-            return Ok(item);
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet("/tags")]
         public async Task<ActionResult> GetTag([FromQuery] string tagName, [FromQuery] string date)
         {
-            var item = await _articleService.GetTagDetail(tagName, date);
-
-            if (item == null)
+            try
             {
-                return BadRequest("Tag not found");
-            }
+                var item = await _articleService.GetTagDetail(tagName, date);
 
-            return Ok(item);
+                if (item == null)
+                {
+                    return BadRequest("Tag not found");
+                }
+
+                return Ok(item);
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
 
         }
         
         [HttpPost("/articles")]
         public ActionResult CreateArticle([FromQuery] ArticleCreateModel article)
         {
-            _articleService.Add(article);
-            return Ok();
+            try
+            {
+                _articleService.Add(article);
+                return Ok();
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

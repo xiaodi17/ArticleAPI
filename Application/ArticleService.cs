@@ -50,6 +50,10 @@ namespace Application
         
         public void Add(ArticleCreateModel articleModel)
         {
+            if (string.IsNullOrEmpty(articleModel.Body) || string.IsNullOrEmpty(articleModel.Title))
+            {
+                throw new InvalidOperationException("Article title and body cannot be empty");
+            }
             var article = new Article
             {
                 Body = articleModel.Body,
@@ -80,10 +84,6 @@ namespace Application
 
         public async Task<TagDetailModel> GetTagDetail(string tagName, string dateString)
         {
-            var tag = await _tagRepository.GetTagByName(tagName);
-            if (tag is null)
-                return null;
-
             if (!DateTime.TryParseExact(dateString,
                 "yyyyMMdd",
                 CultureInfo.InvariantCulture,
@@ -92,6 +92,10 @@ namespace Application
             {
                 throw new InvalidOperationException("Incorrect datetime format");
             }
+            
+            var tag = await _tagRepository.GetTagByName(tagName);
+            if (tag is null)
+                return null;
 
             var relatedArticleIds = tag.ArticleLink.Select(i => i.ArticleId).ToList();
 
