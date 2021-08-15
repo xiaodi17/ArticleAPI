@@ -3,7 +3,11 @@
 ## Setup
 1. Download .net 5 SDK (https://dotnet.microsoft.com/download)
 2. Download docker MSSQL image using :
+
+
 docker run -d --name sql_server -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=someThingComplicated1234' -p 1433:1433 mcr.microsoft.com/mssql/server:2019-latest
+
+
 3. Go to ArticleAPI and enter command: dotnet restore
 4. Go to ArticleAPI\ArticleAPI and enter command: dot net run
 
