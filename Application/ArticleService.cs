@@ -106,8 +106,22 @@ namespace Application
             tagDetailModel.Count = count;
             
             //related tags
+            var allRelatedTagIds = new List<int>();
             
+            foreach (var article in relatedArticles)
+            {
+                var articleTags = article.ArticleLink;
+                foreach (var item in articleTags)
+                {
+                    if (item.TagId != tag.TagId)
+                        allRelatedTagIds.Add(item.TagId);
+                }
+            }
 
+            var distinctRelatedTagIds = allRelatedTagIds.Distinct().ToList();
+            var distinctRelatedTag = await _tagRepository.GetTagsByIds(distinctRelatedTagIds);
+
+            tagDetailModel.RelatedTags = distinctRelatedTag.Select(i => i.Name).ToList();
             return tagDetailModel;
 
         }
