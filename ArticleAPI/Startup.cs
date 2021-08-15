@@ -43,9 +43,6 @@ namespace ArticleAPI
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IArticleTagRepository, ArticleTagRepository>();
             services.AddTransient<ArticleService, ArticleService>();
-            
-            services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             services.AddSwaggerGen(c =>
             {
