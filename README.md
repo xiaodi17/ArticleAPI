@@ -33,7 +33,12 @@ tagName: Title 1
 Date: 20210815
 
 ## Solution
-I have used .net core web api to complete this project with EF core library, mssql with repository patterns. Repository pattern help to separate service from directly manipulate data from the database, hence it helps to reduce the code duplication. 
+I have used .net core web api to complete this project with EF core library, mssql. Sepration of concerns concept has been used in this project. Api project handles the controllers, application project handles the business logic and data access project handles all the repository.
+
+I have used repository patterns in this project. Repository pattern help to separate service from directly manipulate data from the database, hence it helps to reduce the code duplication.
+
+Something interesting I've found in this project is that, it is quite difficult to handle the tag detail query. There are a lot of considerations are required to get the correct result. Firstly, do we allow case insensitive, or duplicated tags in same article. At first glance, I thought it is an easy api test, but at the end I realize that I need to consider a lot of scenarios.
+
 
 ## Assumptions
 1. Assume the users using this API are in the same timezone, so when query by date, it is always going to be the correct date
