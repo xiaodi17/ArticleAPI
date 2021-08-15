@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataAccess
+namespace DataAccess.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, new()
         {

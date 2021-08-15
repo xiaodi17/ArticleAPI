@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess
+namespace DataAccess.Repository
 {
     public class TagRepository : Repository<Tag>, ITagRepository
     {

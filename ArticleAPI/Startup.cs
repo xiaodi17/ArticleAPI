@@ -16,6 +16,7 @@ using Application;
 using ArticleAPI.Controllers;
 using DataAccess;
 using DataAccess.Interfaces;
+using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArticleAPI
