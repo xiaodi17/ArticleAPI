@@ -32,8 +32,8 @@ namespace ArticleAPI.Controllers
             return Ok(item);
         }
 
-        [HttpGet("/tags")]
-        public async Task<ActionResult> GetTag([FromQuery] string tagName, [FromQuery] string date)
+        [HttpGet("/tags/{tagName}/{date}")]
+        public async Task<ActionResult> GetTag([FromRoute] string tagName, [FromRoute] string date)
         {
             var item = await _articleService.GetTagDetail(tagName, date);
 
