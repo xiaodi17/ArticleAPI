@@ -7,21 +7,28 @@ docker run -d --name sql_server -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=someThingComp
 3. Go to ArticleAPI\ArticleAPI and enter command: dot net run
 
 ## Instructions
-Get: localhost:3000/articles/id
+### Get: localhost:3000/articles/id
 
-Post: localhost:3000/articles
+### Post: localhost:3000/articles
+
 Param example:
+
 Title: Title 1
+
 Body: BODY 1
+
 Tags: Tag 1
+
 Tags: Tag 2
 
-Get: localhost:3000/tag
+### Get: localhost:3000/tag
+
 tagName: Title 1
+
 Date: 20210815
 
 ## Solution
-I have used .net core web api to complete this project with EF core library, mssql with repository patterns.
+I have used .net core web api to complete this project with EF core library, mssql with repository patterns. Repository pattern help to separate service from directly manipulate data from the database, hence it helps to reduce the code duplication. 
 
 ## Assumptions
 1. Assume the users using this API are in the same timezone, so when query by date, it is always going to be the correct date
